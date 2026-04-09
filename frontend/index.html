@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Appointment System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Online Appointment System</h1>
+
+    <!-- Login Section -->
+    <div id="loginSection">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="loginEmail">Email:</label>
+        <input type="email" id="loginEmail" required>
+
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" required>
+
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+    </div>
+
+    <!-- Register Section -->
+    <div id="registerSection" style="display: none;">
+      <h2>Register</h2>
+      <form id="registerForm">
+        <label for="regName">Name:</label>
+        <input type="text" id="regName" required>
+
+        <label for="regEmail">Email:</label>
+        <input type="email" id="regEmail" required>
+
+        <label for="regPassword">Password:</label>
+        <input type="password" id="regPassword" required>
+
+        <button type="submit">Register</button>
+      </form>
+      <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+    </div>
+
+    <!-- Slots Section -->
+    <div id="slotsSection" style="display: none;">
+      <h2>Book Appointment</h2>
+      <label for="appointmentDate">Select Date:</label>
+      <input type="date" id="appointmentDate" required>
+      <button id="loadSlots">Load Available Slots</button>
+
+      <div id="slotsContainer"></div>
+
+      <h3>Your Appointments</h3>
+      <ul id="userAppointments"></ul>
+
+      <button id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- All Appointments (Admin view) -->
+    <div id="appointmentsSection" style="display: none;">
+      <h2>All Appointments</h2>
+      <ul id="allAppointments"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
