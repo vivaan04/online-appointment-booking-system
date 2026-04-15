@@ -1,0 +1,112 @@
+.timetable-wrapper {
+  overflow-x: auto;
+  padding: 0;
+}
+
+.timetable-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(6, minmax(180px, 1fr));
+  grid-template-rows: 60px repeat(20, 30px); /* 20 half-hour slots = 10 hours */
+  position: relative;
+  min-width: 1000px;
+}
+
+.time-header-cell {
+  background-color: var(--bg-color);
+  border-bottom: 2px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+}
+
+.day-header-cell {
+  background-color: var(--bg-color);
+  border-bottom: 2px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.day-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.day-date {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+}
+
+.time-label-cell {
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.grid-cell {
+  border-right: 1px solid var(--border-color);
+}
+
+.grid-cell.top-of-hour {
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.grid-cell.bottom-of-hour {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.class-block {
+  margin: 0.25rem;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform var(--transition-fast);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.class-block:hover {
+  transform: scale(1.02);
+  z-index: 20;
+}
+
+.type-lecture { background-color: var(--primary-500); border-left: 4px solid var(--primary-700); }
+.type-lab     { background-color: var(--info-500); border-left: 4px solid #0369a1; }
+.type-tutorial{ background-color: var(--warning-500); border-left: 4px solid #b45309; }
+
+.class-title { font-weight: 600; font-size: 0.875rem; white-space: nowrap; text-overflow: ellipsis; }
+.class-time { font-size: 0.75rem; opacity: 0.9; }
+.class-room { font-size: 0.75rem; background: rgba(0,0,0,0.2); padding: 0.1rem 0.4rem; border-radius: 4px; align-self: flex-start; }
+
+.week-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.25rem;
+}
