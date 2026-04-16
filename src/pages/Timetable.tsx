@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSchedule } from '../context/ScheduleContext';
 import { ChevronLeft, ChevronRight, Filter } from 'lucide-react';
 import { format, addDays, startOfWeek } from 'date-fns';
@@ -9,7 +9,7 @@ const HOURS = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '1
 
 const Timetable: React.FC = () => {
   const { classes } = useSchedule();
-  const [currentWeekTop, setCurrentWeekTop] = useState(new Date());
+  const [currentWeekTop] = useState(new Date());
 
   const startOfCurrentWeek = startOfWeek(currentWeekTop, { weekStartsOn: 1 }); // Start Monday
 
@@ -64,7 +64,7 @@ const Timetable: React.FC = () => {
 
           {/* Time Slots (bg grid) */}
           {Array.from({ length: 20 }).map((_, rIdx) => (
-            <React.Fragment key={`row-${rIdx}`}>
+            <>
               {rIdx % 2 === 0 ? (
                 <div className="time-label-cell" style={{ gridRow: rIdx + 2, gridColumn: 1 }}>
                   {HOURS[rIdx / 2]}
@@ -77,7 +77,7 @@ const Timetable: React.FC = () => {
                   style={{ gridRow: rIdx + 2, gridColumn: cIdx + 2 }}
                 />
               ))}
-            </React.Fragment>
+            </>
           ))}
 
           {/* Class Blocks */}
