@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { apiClient } from '../utils/apiClient';
 
 export type Role = 'student' | 'faculty' | 'admin';
 
@@ -34,10 +35,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return;
       }
       try {
-        const res = await fetch('/api/auth/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+        const res = await apiClient.get('/auth/me', {
+          'Authorization': `Bearer ${token}`
         });
         if (res.ok) {
           const userData = await res.json();

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode, useEffect } from 'react';
 import { useAuth } from './AuthContext';
+import { apiClient } from '../utils/apiClient';
 
 export interface Course {
   _id: string;
@@ -53,9 +54,9 @@ export const ScheduleProvider: React.FC<{ children: ReactNode }> = ({ children }
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       const [coursesRes, classesRes, appsRes] = await Promise.all([
-        fetch('/api/courses', { headers }),
-        fetch('/api/classes', { headers }),
-        fetch('/api/appointments', { headers })
+        apiClient.get('/courses', headers),
+        apiClient.get('/classes', headers),
+        apiClient.get('/appointments', headers)
       ]);
       setCourses(await coursesRes.json());
       setClasses(await classesRes.json());
@@ -71,13 +72,8 @@ export const ScheduleProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   const bookAppointment = async (appointment: Partial<Appointment>) => {
     try {
-      const res = await fetch('/api/appointments', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(appointment)
+      const res = await apiClient.post('/appointments', appointment, {
+        'Authorization': `Bearer ${token}`
       });
       const newAppt = await res.json();
       setAppointments(prev => [...prev, newAppt]);
@@ -88,13 +84,8 @@ export const ScheduleProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   const updateAppointmentStatus = async (id: string, status: 'approved' | 'declined') => {
     try {
-      const res = await fetch(`/api/appointments/${id}`, {
-        method: 'PATCH',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ status })
+      const res = await apiClient.patch(`/appointments/${id}`, { status }, {
+        'Authorization': `Bearer ${token}`
       });
       if (res.ok) {
         setAppointments(prev => prev.map(app => app._id === id ? { ...app, status } : app));

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import type { Role } from '../context/AuthContext';
 import { LogIn, UserPlus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { apiClient } from '../utils/apiClient';
 import './Login.css';
 
 const Login: React.FC = () => {
@@ -23,14 +24,10 @@ const Login: React.FC = () => {
     e.preventDefault();
     setErrorMsg('');
     
-    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
+    const endpoint = isLogin ? '/auth/login' : '/auth/signup';
     
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+      const res = await apiClient.post(endpoint, formData);
       
       const data = await res.json();
       
